@@ -28,7 +28,10 @@ public class EncryptedData {
         secureRandom.nextBytes(symmerticalKey);
     }
 
-    public EncryptedData(int keyLengthRSA, int keyLengthAES, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public EncryptedData(int keyLengthRSA, int keyLengthAES, String password) throws
+        NoSuchAlgorithmException,
+        UnsupportedEncodingException {
+
         // setting key lengths
         this.keyLengthAES = keyLengthAES;
         this.keyLengthRSA = keyLengthRSA;
@@ -41,6 +44,10 @@ public class EncryptedData {
         // use password to generate symmetrical key
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         this.symmerticalKey = Arrays.copyOfRange(digest.digest(password.getBytes("UTF-8")), 0, 16);
+    }
+
+    public EncryptedData() {
+        // testing only
     }
 
     private SecretKey generateAESKey(byte[] iv) throws
