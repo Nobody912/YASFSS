@@ -1,6 +1,6 @@
 import javax.crypto.*;
 import javax.crypto.spec.*;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.*;
 import java.security.*;
 import java.security.spec.*;
@@ -28,7 +28,7 @@ public class EncryptedData {
         secureRandom.nextBytes(symmerticalKey);
     }
 
-    public EncryptedData(int keyLengthRSA, int keyLengthAES, String password) throws NoSuchAlgorithmException {
+    public EncryptedData(int keyLengthRSA, int keyLengthAES, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         // setting key lengths
         this.keyLengthAES = keyLengthAES;
         this.keyLengthRSA = keyLengthRSA;
@@ -40,10 +40,14 @@ public class EncryptedData {
 
         // use password to generate symmetrical key
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        this.symmerticalKey = Arrays.copyOfRange(password.getBytes("UTF-8"), 0, 16);
+        this.symmerticalKey = Arrays.copyOfRange(digest.digest(password.getBytes("UTF-8")), 0, 16);
     }
 
-    private SecretKey generateAESKey(byte[] iv) {
+    private SecretKey generateAESKey(byte[] iv) throws
+        NoSuchAlgorithmException,
+        InvalidKeySpecException,
+        UnsupportedEncodingException {
+        
         KeySpec spec = new PBEKeySpec(new String(symmerticalKey, "UTF-8").toCharArray(), iv, 65536, this.keyLengthAES);
         SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         byte[] key = secretKeyFactory.generateSecret(spec).getEncoded();
@@ -51,14 +55,25 @@ public class EncryptedData {
     }
 
     public byte[] encryptKey(byte[] input) {
-        //thonk
+        byte[] temp = new byte[16];
+        return temp;
     }
 
     public byte[] decryptKey(byte[] input) {
-        //thonk
+        byte[] temp = new byte[16];
+        return temp;
     }
 
-    public byte[] encryptData(byte[] input) {
+    public byte[] encryptData(byte[] input) throws
+        NoSuchAlgorithmException,
+        InvalidKeySpecException,
+        UnsupportedEncodingException,
+        NoSuchPaddingException,
+        InvalidKeyException,
+        InvalidAlgorithmParameterException,
+        IllegalBlockSizeException,
+        BadPaddingException {
+
         // prepping nonce
         SecureRandom secureRandom = new SecureRandom();
         byte[] iv = new byte[12];
@@ -84,7 +99,15 @@ public class EncryptedData {
         return byteBuffer.array();
     }
 
-    public byte[] decryptData(byte[] input) {
+    public byte[] decryptData(byte[] input) throws
+        NoSuchAlgorithmException,
+        InvalidKeySpecException,
+        UnsupportedEncodingException,
+        NoSuchPaddingException,
+        InvalidKeyException,
+        InvalidAlgorithmParameterException,
+        IllegalBlockSizeException,
+        BadPaddingException {
         // wrapping byte[] input
         ByteBuffer byteBuffer = ByteBuffer.wrap(input);
 
