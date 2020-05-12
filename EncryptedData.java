@@ -122,3 +122,4 @@ public class EncryptedData {
     public PrivateKey getPrivateKey() {
         return keyPair.getPrivate();
     }
+}
