@@ -40,7 +40,6 @@ public class Test {
             byte[] data;
             SecretKey secretKey;
 
-            // random salt
             System.out.println("### ENCRYPTION/DECRYPTION (AES/NOPASS) TESTING ###");
             
             SecuredData test = new SecuredData(2048, 128);
@@ -57,7 +56,7 @@ public class Test {
             // hand off
             String decryptedData;
             SecretKey decryptedKey = test.decryptKey(encryptedKey, prKey);            
-            decryptedData = new String(test.decryptData(data, secretKey), "UTF-8");
+            decryptedData = new String(test.decryptData(data, decryptedKey), "UTF-8");
 
             System.out.println("ORIGINAL: " + TEXT);
             System.out.println("EN/DECRYPTED: " + decryptedData);
@@ -67,6 +66,30 @@ public class Test {
         catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public void testTrade() {
+        // 1) receiver generates keys
+        SecuredData lol = new SecuredData(2048, 128);
+        PrivateKey privateKey = lol.getPrivateKey();
+        PublicKey publicKey = lol.getPublicKey();
+
+        // 2) receiver sends the publicKey
+
+        // 3)  sender generates AES key
+        String secretStuff = "wow very cool";
+        SecuredData pog = new SecuredData(2048, 128);
+        Object[] encryptedStuff = pog.encryptData(secretStuff.getBytes());
+        byte[] encryptedData = (byte[]) encryptedStuff[0];
+        SecretKey key = (SecretKey) encryptedStuff[1];
+        byte[] encryptedKey = pog.encryptKey(publicKey, key);
+
+        // 4)  sender sends encrypted data and encrypted key
+        
+        // 5) receiver decrypts key and data
+        SecuredData nice = new SecuredData(2048, 128);
+        SecretKey decryptedKey = nice.decryptKey(encryptedKey, privateKey);
+        byte[] decryptedData = nice.decryptData(encryptedData, decryptedKey);
     }
 
     public static void main(String args[])

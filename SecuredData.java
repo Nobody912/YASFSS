@@ -202,6 +202,10 @@ public class SecuredData {
         return key;
     }
 
+    /**
+     * getPublicKey
+     * @return PublicKey
+     */
     public PublicKey getPublicKey() {
         return keyPair.getPublic();
     }
