@@ -1,0 +1,69 @@
+a)
+    public double getTotalRevenue()
+    {
+        double total = 0;
+        for (Flight flight : allFlights)
+        {
+            if (flight.getNumPassengers() > flight.getCapacity())
+            {
+                total += flight.getCapacity() * flight.getPrice();
+            }
+            else
+            {
+                total += flight.getNumPassengers() * flight.getPrice();
+            }
+        }
+        return total;
+    }
+
+b)
+    public int updateFlights()
+    {
+        int counter = 0;
+        for (int i = 0; i < allFlights.size(); i++)
+        {
+            Flight flight = allFlights.get(i);
+            if ((flight.getNumPassengers() / flight.getCapacity()) < 0.2)
+            {
+                counter += flight.getNumPassengers();
+                allFlights.remove(i);
+                i--;
+            }
+        }
+        return counter;
+    }
+
+c)
+    To implement the method getMostLuggageCapacity, the flight method must have a weight system implemented, giving the weight of the passengers and the weight tolerance of the aircraft to be used when calculating the amount of weight allottable to luggage.
+
+    Example Header:
+    public Flight getMostLuggageCapacity()
+    Variables to add (to Flight):
+    averagePassengerWeight -> double
+    maxWeight -> double
+    Methods/Constructors to add (to Flight):
+    add a constructor that requires maxWeight input
+    add a constructor that allows an optional passenger weight parameter
+
+
+---
+6Y491X4Y
+EJ
+a)
+    public static double gradeSimulation()
+    {
+        double total = 0.0;
+        double count = 0.0;
+        double temp = getGrade();
+        while (temp >= 0.0)
+        {
+            if (temp >= 90.0)
+            {
+                count++;
+            }
+            total++;
+        }
+        return count / total;
+    }
+b)
+    The class GradeAnalysis would need to modified to accept these changes. In a new field and constructor would need to be added. The field would be private final double to set it as an internal constant of type double, meeting the requirement to make it unchangeable. The constructor would have to include a parameter to set this maximum grade cap upon instantiation.
