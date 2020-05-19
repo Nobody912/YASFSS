@@ -1,3 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * This is all based on a site I saw on compression in Java
@@ -9,11 +17,11 @@
  */
 public class CompressedData
 {
-    public void compress(String filepath)
+    public static void compress(String filePath)
     {
         try 
         {
-            File file = new File(filepath);
+            File file = new File(filePath);
             String fileName = file.getName().concat(".zip");
             
             FileOutputStream fos = new FileOutputStream(fileName);
@@ -40,6 +48,6 @@ public class CompressedData
     public static void main(String[] args) 
     {
         String filePath = args[0];
-        zipFile(filePath);
+        compress(filePath);
     }
 }
