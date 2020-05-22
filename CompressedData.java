@@ -45,9 +45,10 @@ public class CompressedData
         }
     }
  
-    public static void main(String[] args) 
-    {
-        String filePath = args[0];
-        compress(filePath);
-    }
+    //commented out bc i made a cooler, newer class just for mains
+    //-nathan
+    /*
+     * public static void main(String[] args) { String filePath = args[0];
+     * compress(filePath); }
+     */
 }
