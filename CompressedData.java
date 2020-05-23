@@ -5,8 +5,8 @@ import java.util.zip.GZIPOutputStream;
 
 public class CompressedData
 {
-    
-    private static void decompressGzipFile(String gzipFile, String newFile) {
+    //should be public?
+    public static void decompressGzipFile(String gzipFile, String newFile) {
         try {
             FileInputStream fis = new FileInputStream(gzipFile);
             GZIPInputStream gis = new GZIPInputStream(fis);
@@ -25,7 +25,7 @@ public class CompressedData
         
     }
 
-    private static void compressGzipFile(String file, String gzipFile) {
+    public static void compressGzipFile(String file, String gzipFile) {
         try {
             FileInputStream fis = new FileInputStream(file);
             FileOutputStream fos = new FileOutputStream(gzipFile);

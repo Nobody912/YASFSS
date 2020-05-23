@@ -12,6 +12,7 @@ public class Test {
         System.out.println("TESTING!");
         testHash();
         testAES();
+        testCompression();
         //testKeyEncryption();
     }
 
@@ -90,6 +91,16 @@ public class Test {
         SecuredData nice = new SecuredData(2048, 128);
         SecretKey decryptedKey = nice.decryptKey(encryptedKey, privateKey);
         byte[] decryptedData = nice.decryptData(encryptedData, decryptedKey);
+    }
+    
+    public void testCompression()
+    {
+        CompressedData compressor = new CompressedData();
+        System.out.println("Now Testing Compression");
+        compressor.compressGzipFile("testFile.txt", "testFile.txt.gz");
+        compressor.decompressGzipFile("testFile.txt.gz", "testFile.txt");
+        System.out.println("Compression Complete");
+        
     }
 
     public static void main(String args[])
