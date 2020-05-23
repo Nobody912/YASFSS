@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.zip.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+import org.tukaani.*;
 
 public class CompressedData
 {

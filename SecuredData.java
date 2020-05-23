@@ -28,7 +28,20 @@ public class SecuredData {
     }
 
     public SecuredData() {
-        // testing
+        try
+        {
+            // setting key length
+            this.keyLengthAES = 128;
+
+            // generate RSA keys
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            keyGen.initialize(2048);
+            this.keyPair = keyGen.generateKeyPair();
+        }
+        
+        catch (Exception e) {
+            System.out.println("exception creating EncryptedData object: " + e.getMessage());
+        }
     }
 
     // methods
