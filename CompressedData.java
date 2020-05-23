@@ -5,8 +5,7 @@ import java.util.zip.GZIPOutputStream;
 
 public class CompressedData
 {
-    //should be public?
-    public static void decompressGzipFile(String gzipFile, String newFile) {
+    public void decompressGzipFile(String gzipFile, String newFile) {
         try {
             FileInputStream fis = new FileInputStream(gzipFile);
             GZIPInputStream gis = new GZIPInputStream(fis);
@@ -25,7 +24,7 @@ public class CompressedData
         
     }
 
-    public static void compressGzipFile(String file, String gzipFile) {
+    public void compressGzipFile(String file, String gzipFile) {
         try {
             FileInputStream fis = new FileInputStream(file);
             FileOutputStream fos = new FileOutputStream(gzipFile);
@@ -43,15 +42,5 @@ public class CompressedData
             e.printStackTrace();
         }
         
-    }
- 
-    public static void main(String[] args) 
-    {
-        String FILENAME = "Abed's Uncontrollable Christmas.mp4";
-        String file = FILENAME;
-        String gzipFile = FILENAME + ".gz";
-        String newFile = "new_" + FILENAME;
-        compressGzipFile(file, gzipFile);
-        decompressGzipFile(gzipFile, newFile);
     }
 }
