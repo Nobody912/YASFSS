@@ -9,7 +9,11 @@ public class SecuredData {
     private KeyPair keyPair;
     private int keyLengthAES;
 
-    // constructors
+    /**
+     * SecuredData constructor
+     * @param keyLengthRSA
+     * @param keyLengthAES
+     */
     public SecuredData(int keyLengthRSA, int keyLengthAES) {
         try
         {
