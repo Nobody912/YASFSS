@@ -35,7 +35,7 @@ public class YASFSS
                         secret = scan.nextLine();
                         System.out.println( "Your file is being encrypted and compressed" );
                         System.out.println();
-                        Parcel.importData( filePath, secret );
+                        //Parcel.importData( filePath, secret );
                         System.out.println("Your file has been encrytped and compressed");
                         break;
                     case '2':
@@ -45,7 +45,7 @@ public class YASFSS
                         secret = scan.nextLine();
                         System.out.println("Your file is being decompressed and decrypted");
                         System.out.println();
-                        Parcel.exportData( filePath, secret );
+                        //Parcel.exportData( filePath, secret );
                         System.out.println("Your file has been ecrypted and compressed");
                         break;
                     case 'q':
