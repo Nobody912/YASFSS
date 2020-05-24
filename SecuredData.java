@@ -226,25 +226,4 @@ public class SecuredData {
     public PrivateKey getPrivateKey() {
         return keyPair.getPrivate();
     }
-
-    public String getHash(byte[] fileSample) {
-        StringBuilder sb = null;
-        try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            byte[] result = digest.digest(fileSample);
-
-            // converting byte array to Hexadecimal String
-            sb = new StringBuilder(2 * result.length);
-            for (byte b : result) {
-            sb.append(String.format("%02x", b&0xff));
-            }
-        }
-
-        catch (Exception e)
-        {
-            System.out.println("exception creating hash: " + e.getMessage());
-        }
-
-        return sb.toString();
-    }
 }
