@@ -16,8 +16,9 @@ public class YASFSS
         do
         {
             System.out.println( "Would You like to: " );
-            System.out.println( "1) Compress and Encrypt a file" );
-            System.out.println( "2) Decrypt and Decompress a file" );
+            System.out.println( "1) Generate Keys");
+            System.out.println( "2) Compress and Encrypt a file" );
+            System.out.println( "3) Decrypt and Decompress a file" );
             System.out.println( "Q) Quit" );
 
             String response = scan.nextLine();
@@ -28,6 +29,13 @@ public class YASFSS
                 switch ( response.charAt( 0 ) )
                 {
                     case '1':
+                        System.out.println("Generating Keys");
+                        System.out.println("...");
+                        parcel.generateRSAKeyPair();
+                        System.out.println("Done");
+                        System.out.println();
+                        break;
+                    case '2':
                         System.out.println( "Please put in your file path: " );
                         filePath = scan.nextLine();
                         System.out.println( "Please put in the file path to the public key: " );
@@ -38,7 +46,7 @@ public class YASFSS
                         System.out.println( "Done" );
                         System.out.println();
                         break;
-                    case '2':
+                    case '3':
                         System.out.println( "Please put in your file path: " );
                         filePath = scan.nextLine();
                         System.out.println( "Please put in the file path to the AES Key: " );

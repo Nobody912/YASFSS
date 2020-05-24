@@ -19,7 +19,7 @@ public class Test {
             final String TEXT = "Hello World!";
             final String HASH = "ed076287532e86365e841e92bfc50d8c";
             
-            SecuredData test = new SecuredData();
+            Parcel test = new Parcel();
             String result = test.getHash(TEXT.getBytes("UTF-8"));
     
             System.out.println("CHECK: " + HASH + "\nHASH: " + result);
