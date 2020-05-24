@@ -8,15 +8,11 @@ import java.io.FileOutputStream;
 
 /**
  *  compresses and encrypts the data
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
  *
  *  @author  Erik Ji, Nathan Fang, Zeke Davidson
  *  @version May 23, 2020
  *  @author  Period: 3
  *  @author  Assignment: YASFSS
- *
- *  @author  Sources: TODO
  */
 public class Parcel
 {

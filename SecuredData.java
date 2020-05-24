@@ -7,8 +7,14 @@ import java.util.*;
 
 /**
  * The SecuredData class handles data and key encryption and decryption
+ *
+ *  @author  Erik Ji, Nathan Fang, Zeke Daivdson
+ *  @version May 23, 2020
+ *  @author  Period: 3
+ *  @author  Assignment: YASFSS
  */
-public class SecuredData {
+public class SecuredData 
+{
     private KeyPair keyPair;
     private int keyLengthAES;
 
@@ -77,6 +83,11 @@ public class SecuredData {
         return result;
     }
 
+    /**
+     * Encrypts data given a byte array input
+     * @param input the byte array to be enrypted
+     * @return the encrypted file and a key
+     */
     public Object[] encryptData(byte[] input)
     {
         SecureRandom secureRandom = new SecureRandom();

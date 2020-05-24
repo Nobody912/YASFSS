@@ -87,6 +87,10 @@ public class YASFSS
     }
 
 
+    /**
+     * The main method, calls the GUI and allows the user to use the program.
+     * @param args arguments
+     */
     public static void main( String[] args )
     {
         new YASFSS();
