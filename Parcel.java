@@ -1,95 +1,11 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import javax.crypto.SecretKey;
 import java.security.*;
 import java.security.spec.*;
+import java.nio.file.*;
 
 public class Parcel
 {
-    /**
-     * takes file and turns it into a byte array
-     * @param filePath
-     * @return
-     */
-    private byte[] turnFileIntoByteArray(String filePath)
-    {
-        try
-        {
-            File file = new File(filePath);
-            byte[] array = new byte[(int)file.length()];
-            FileInputStream fis = new FileInputStream(file);
-            fis.read(array);
-            fis.close();
-            
-            return array;
-        }
-        catch (FileNotFoundException ex) 
-        {
-            System.err.format("The file %s does not exist", filePath);
-        } 
-        catch (IOException ex) 
-        {
-            System.err.println("I/O error: " + ex);
-        }
-        return null;
-    }
-    
-    /**
-     * takes byte array and turns it into a file
-     * @param array
-     * @param filePath
-     * @return
-     */
-    private File turnByteArrayIntoFile(byte[] array, String filePath)
-    {
-        File output = new File(filePath);
-        try
-        {
-            FileOutputStream fos = new FileOutputStream(output);
-            fos.write(array);
-            return output;
-        }
-        catch (FileNotFoundException ex) 
-        {
-            System.err.format("The file %s does not exist", filePath);
-        } 
-        catch (IOException ex) 
-        {
-            System.err.println("I/O error: " + ex);
-        }
-        return null;
-    }
-    
-    /**
-     * Turn file into byte[] >
-     * compress >
-     * encrypt >
-     * turn back into file
-     */
-    private void exportData(String filePath, String keyAESPath, String keyPublicRSAPath)
-    {
-        CompressedData compressor = new CompressedData();
-        SecuredData encryptor = new SecuredData();
-        
-
-    }
-    
-    /**
-     * Turn file into byte[] >
-     * decrypt >
-     * decompress >
-     * turn back into file
-     */
-    private void importData(String filePath, String keyEncryptedAESPath)
-    {
-        CompressedData compressor = new CompressedData();
-        SecuredData encryptor = new SecuredData();
-
-    }
-
     public void generateRSAKeyPair()
     {
         try
@@ -113,17 +29,28 @@ public class Parcel
         }
     }
 
-    public void sendData()
+    public void sendData(String filePath, String publicKeyPath)
     {
         try
         {
             SecuredData encryptor = new SecuredData();
+            CompressedData compressor = new CompressedData();
 
+            byte[] rawFile = Files.readAllBytes(Paths.get(filePath));
+            Object[] encrypted = encryptor.encryptData(rawFile);
+            byte[] encryptedData = (byte[]) encrypted[0];
+            SecretKey secretKey = (SecretKey) encrypted[1];
+
+            byte[] publicKeyRaw = Files.readAllBytes(Paths.get(publicKeyPath));
+            X509EncodedKeySpec ks = new X509EncodedKeySpec(publicKeyRaw);
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+            PublicKey publicKey = kf.generatePublic(ks);
+            byte[] encryptedKey = encryptor.encryptKey(publicKey, secretKey);
         }
         
         catch (Exception e)
         {
-            System.out.println("exception generating RSA keypairs: " + e.getMessage());
+            System.out.println("exception processing data for sending: " + e.getMessage());
         }
     }
 }
