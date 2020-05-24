@@ -34,9 +34,10 @@ public class YASFSS
                         System.out.println("What would you like the password to be?");
                         secret = scan.nextLine();
                         System.out.println( "Your file is being encrypted and compressed" );
+                        System.out.println("...");
+//                        Parcel.importData( filePath, secret );
+                        System.out.println("Done");
                         System.out.println();
-                        //Parcel.importData( filePath, secret );
-                        System.out.println("Your file has been encrytped and compressed");
                         break;
                     case '2':
                         System.out.println( "put in your file path" );
@@ -44,19 +45,23 @@ public class YASFSS
                         System.out.println("What is the password?");
                         secret = scan.nextLine();
                         System.out.println("Your file is being decompressed and decrypted");
+                        System.out.println("...");
+//                        Parcel.exportData( filePath, secret );
+                        System.out.println("Done");
                         System.out.println();
-                        //Parcel.exportData( filePath, secret );
-                        System.out.println("Your file has been ecrypted and compressed");
                         break;
                     case 'q':
                     case 'Q':
                         done = true;
+                        System.out.println();
+                        break;
                     default:
                         System.out.println("Please select a valid option");
-                        
+                        System.out.println();
+                        System.out.println();
                 }
             }
         } while ( !done );
-        System.out.println( "Thank you!" );
+        System.out.println( "Goodbye!" );
     }
 }
