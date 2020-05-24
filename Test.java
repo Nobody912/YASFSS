@@ -1,17 +1,14 @@
 import javax.crypto.*;
-import javax.crypto.spec.*;
-import java.nio.*;
 import java.security.*;
-import java.security.spec.*;
-import java.util.*;
-import java.lang.reflect.Array; 
+
 
 public class Test {
     public Test()
     {
         System.out.println("TESTING!");
-        testHash();
-        testAES();
+        //testHash();
+        //testAES();
+        testFinal();
         //testCompression();
     }
 
@@ -78,6 +75,12 @@ public class Test {
         
     }
 
+    public void testFinal() {
+        Parcel testParcel = new Parcel();
+        testParcel.generateRSAKeyPair();
+        testParcel.sendData("test.txt", "public.key");
+        testParcel.receiveData("test.txt.enc", "securedkey.key", "private.p8");
+    }
     public static void main(String args[])
     {
         new Test();

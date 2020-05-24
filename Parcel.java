@@ -3,6 +3,7 @@ import javax.crypto.SecretKey;
 import java.security.*;
 import java.security.spec.*;
 import java.nio.file.*;
+import java.io.File;
 import java.io.FileOutputStream;
 
 public class Parcel
@@ -15,7 +16,7 @@ public class Parcel
             PublicKey publicKey = encryptor.getPublicKey();
             PrivateKey privateKey = encryptor.getPrivateKey();
     
-            FileOutputStream out = new FileOutputStream("private.p8");
+            FileOutputStream out = new FileOutputStream("private.key");
             out.write(privateKey.getEncoded());
             out.close();
     
@@ -37,9 +38,9 @@ public class Parcel
             SecuredData encryptor = new SecuredData();
             CompressedData compressor = new CompressedData();
 
-            compressor.compressGzipFile(file, gzipFile);
+            compressor.compressGzipFile(filePath, filePath + ".gz");
 
-            byte[] rawFile = Files.readAllBytes(Paths.get(filePath));
+            byte[] rawFile = Files.readAllBytes(Paths.get(filePath + ".gz"));
             Object[] encrypted = encryptor.encryptData(rawFile);
             byte[] encryptedData = (byte[]) encrypted[0];
             SecretKey secretKey = (SecretKey) encrypted[1];
@@ -49,6 +50,19 @@ public class Parcel
             KeyFactory kf = KeyFactory.getInstance("RSA");
             PublicKey publicKey = kf.generatePublic(ks);
             byte[] encryptedKey = encryptor.encryptKey(publicKey, secretKey);
+
+            // write out encryptedData as "filePath.extension.enc"
+            FileOutputStream out = new FileOutputStream(filePath + ".enc");
+            out.write(encryptedData);
+            out.close();
+
+            out = new FileOutputStream("secured.key");
+            out.write(encryptedKey);
+            out.close();
+
+            // remove filePath.gz file
+            File temp = new File(filePath + ".gz");
+            temp.delete();
         }
         
         catch (Exception e)
@@ -64,8 +78,23 @@ public class Parcel
             SecuredData encryptor = new SecuredData();
             CompressedData compressor = new CompressedData();
 
-            byte[] encryptedFile = Files.readAllBytes(Paths.get(filePath));
+            byte[] encryptedData = Files.readAllBytes(Paths.get(filePath));
+            byte[] encryptedKey = Files.readAllBytes(Paths.get(AESKeyPath));
+
+            byte[] privateKeyRaw = Files.readAllBytes(Paths.get(privateKeyPath));
+            PKCS8EncodedKeySpec ks = new PKCS8EncodedKeySpec(privateKeyRaw);
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+            PrivateKey privateKey = kf.generatePrivate(ks);
             
+            SecretKey secretKey = encryptor.decryptKey(encryptedKey, privateKey);
+
+            byte[] decryptedData = encryptor.decryptData(encryptedData, secretKey);
+
+            FileOutputStream out = new FileOutputStream(filePath.substring(0, filePath.lastIndexOf(".")) + ".gz");
+            out.write(decryptedData);
+            out.close();
+
+            compressor.decompressGzipFile(filePath.substring(0, filePath.lastIndexOf(".")) + ".gz", filePath.substring(0, filePath.lastIndexOf(".")));
         }
         
         catch (Exception e)

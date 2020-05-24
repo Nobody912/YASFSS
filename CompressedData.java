@@ -19,7 +19,8 @@ public class CompressedData
             gzipOS.close();
             fos.close();
             fis.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -37,7 +38,8 @@ public class CompressedData
 
             fos.close();
             gis.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         
