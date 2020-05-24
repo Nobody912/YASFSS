@@ -37,6 +37,8 @@ public class Parcel
             SecuredData encryptor = new SecuredData();
             CompressedData compressor = new CompressedData();
 
+            compressor.compressGzipFile(file, gzipFile);
+
             byte[] rawFile = Files.readAllBytes(Paths.get(filePath));
             Object[] encrypted = encryptor.encryptData(rawFile);
             byte[] encryptedData = (byte[]) encrypted[0];
@@ -47,6 +49,23 @@ public class Parcel
             KeyFactory kf = KeyFactory.getInstance("RSA");
             PublicKey publicKey = kf.generatePublic(ks);
             byte[] encryptedKey = encryptor.encryptKey(publicKey, secretKey);
+        }
+        
+        catch (Exception e)
+        {
+            System.out.println("exception processing data for sending: " + e.getMessage());
+        }
+    }
+
+    public void receiveData(String filePath, String AESKeyPath, String privateKeyPath)
+    {
+        try
+        {
+            SecuredData encryptor = new SecuredData();
+            CompressedData compressor = new CompressedData();
+
+            byte[] encryptedFile = Files.readAllBytes(Paths.get(filePath));
+            
         }
         
         catch (Exception e)
