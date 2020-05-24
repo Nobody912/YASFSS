@@ -12,8 +12,6 @@ import java.util.zip.GZIPOutputStream;
  *  @version May 23, 2020
  *  @author  Period: 3
  *  @author  Assignment: YASFSS
- *
- *  @author  Sources: None
  */
 public class CompressedData
 {

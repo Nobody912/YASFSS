@@ -1,8 +1,20 @@
 import java.util.Scanner;
 
-// GUI STUFF
-
-
+/**
+ *  YASFSS has the GUI and the main method. The GUI allows the user to 
+ *  1) Generate Keys that will help encrypt files
+ *  2) Compress and Ecrypt files using the public key from option 1
+ *  3) Decrypt and Decompress files using keys from the sender as well as a key
+ *   from option 1
+ *  Q) Quit the program
+ *  All other options will give a message saying that there was an invalid 
+ *  option
+ *  
+ *  @author  Erik Ji, Nathan Fang, Zeke Davidson
+ *  @version May 23, 2020
+ *  @author  Period: 3
+ *  @author  Assignment: YASFSS
+ */
 public class YASFSS
 {
     public YASFSS()
