@@ -31,7 +31,7 @@ public class YASFSS
                     case '1':
                         System.out.println( "Please put in your file path: " );
                         filePath = scan.nextLine();
-                        System.out.println( "What would you like the password to be?" );
+                        System.out.println( "What would you like the secret to be?" );
                         secret = scan.nextLine();
                         System.out.println( "Your file is being encrypted and compressed" );
                         System.out.println( "..." );
