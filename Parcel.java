@@ -3,17 +3,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import javax.crypto.SecretKey;
+import java.security.*;
+import java.security.spec.*;
 
 public class Parcel
 {
-    /**takes file and turns it into a byte array
-     * https://mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
+    /**
+     * takes file and turns it into a byte array
      * @param filePath
      * @return
      */
-    public byte[] turnFileIntoByteArray(String filePath)
+    private byte[] turnFileIntoByteArray(String filePath)
     {
         try
         {
@@ -36,13 +37,13 @@ public class Parcel
         return null;
     }
     
-    /**takes byte array and turns it into a file
-     * https://stackoverflow.com/questions/23533695/java-convert-bytes-to-file
+    /**
+     * takes byte array and turns it into a file
      * @param array
      * @param filePath
      * @return
      */
-    public File turnByteArrayIntoFile(byte[] array, String filePath)
+    private File turnByteArrayIntoFile(byte[] array, String filePath)
     {
         File output = new File(filePath);
         try
@@ -62,46 +63,67 @@ public class Parcel
         return null;
     }
     
-    
-    
     /**
      * Turn file into byte[] >
      * compress >
      * encrypt >
      * turn back into file
      */
-    public void exportData(String filePath, String secret)
+    private void exportData(String filePath, String keyAESPath, String keyPublicRSAPath)
     {
         CompressedData compressor = new CompressedData();
         SecuredData encryptor = new SecuredData();
         
-        byte[] array = turnFileIntoByteArray(filePath);
-        
-        compressor.compressGzipFile(filePath, filePath.concat( ".gz" ));
-        
-//        array = encryptor.encryptData(array, secret); //is encrypt data supposed to return Object[]?
-        
-        File file = turnByteArrayIntoFile(array, filePath);
+
     }
     
     /**
-     * Turn file into byte[]>
+     * Turn file into byte[] >
      * decrypt >
      * decompress >
      * turn back into file
      */
-    public void importData(String filePath, String secret)
+    private void importData(String filePath, String keyEncryptedAESPath)
     {
         CompressedData compressor = new CompressedData();
         SecuredData encryptor = new SecuredData();
+
+    }
+
+    public void generateRSAKeyPair()
+    {
+        try
+        {
+            SecuredData encryptor = new SecuredData();
+            PublicKey publicKey = encryptor.getPublicKey();
+            PrivateKey privateKey = encryptor.getPrivateKey();
+    
+            FileOutputStream out = new FileOutputStream("private.p8");
+            out.write(privateKey.getEncoded());
+            out.close();
+    
+            out = new FileOutputStream("public.key");
+            out.write(publicKey.getEncoded());
+            out.close();
+        }
         
-        byte[] array = turnFileIntoByteArray(filePath);
-//        SecretKey key = encryptor.generateAESKey(array, secret);
+        catch (Exception e)
+        {
+            System.out.println("exception generating RSA keypairs: " + e.getMessage());
+        }
+    }
+
+    public void sendData()
+    {
+        try
+        {
+            SecuredData encryptor = new SecuredData();
+
+        }
         
-//        encryptor.decryptData(array, key);
-        
-        compressor.decompressGzipFile(filePath, filePath);//change filePath
-        
-        
+        catch (Exception e)
+        {
+            System.out.println("exception generating RSA keypairs: " + e.getMessage());
+        }
     }
 }

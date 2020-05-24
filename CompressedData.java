@@ -2,13 +2,11 @@ import java.io.*;
 import java.util.zip.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-import org.tukaani.xz.*;
+// import org.tukaani.xz.*;
 
 public class CompressedData
 {
     public void decompressGzipFile(String gzipFile, String newFile) {
-        LZMA2Options options = new LZMA2Options();
-        
         try {
             FileInputStream fis = new FileInputStream(gzipFile);
             GZIPInputStream gis = new GZIPInputStream(fis);
