@@ -78,8 +78,8 @@ public class Test {
     public void testFinal() {
         Parcel testParcel = new Parcel();
         testParcel.generateRSAKeyPair();
-        testParcel.sendData("test.txt", "public.key");
-        testParcel.receiveData("test.txt.enc", "protected.key", "private.key");
+        testParcel.sendData("Abed's Uncontrollable Christmas.mp4", "public.key");
+        testParcel.receiveData("Abed's Uncontrollable Christmas.mp4.enc", "protected.key", "private.key");
     }
     public static void main(String args[])
     {
