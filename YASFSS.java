@@ -16,7 +16,7 @@ public class YASFSS
 
         do
         {
-            System.out.println( "Would You like to: " );
+            System.out.println( "Would You like to: " );   
             System.out.println( "1) Compress and Encrypt a file" );
             System.out.println( "2) Decrypt and Decompress a file" );
             System.out.println( "Q) Quit" );

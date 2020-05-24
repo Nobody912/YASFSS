@@ -5,6 +5,9 @@ import java.security.*;
 import java.security.spec.*;
 import java.util.*;
 
+/**
+ * The SecuredData class handles data and key encryption and decryption
+ */
 public class SecuredData {
     private KeyPair keyPair;
     private int keyLengthAES;
