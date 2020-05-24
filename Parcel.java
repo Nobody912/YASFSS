@@ -6,8 +6,24 @@ import java.nio.file.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
+/**
+ *  compresses and encrypts the data
+ *  TODO Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ *
+ *  @author  Erik Ji, Nathan Fang, Zeke Davidson
+ *  @version May 23, 2020
+ *  @author  Period: 3
+ *  @author  Assignment: YASFSS
+ *
+ *  @author  Sources: TODO
+ */
 public class Parcel
 {
+    /**
+     * generates the rsa keypair
+     * aka the public and private key
+     */
     public void generateRSAKeyPair()
     {
         try
@@ -31,6 +47,11 @@ public class Parcel
         }
     }
 
+    /**
+     * encrypts and compresses the data
+     * @param filePath filepath to file
+     * @param publicKeyPath filepath to key
+     */
     public void sendData(String filePath, String publicKeyPath)
     {
         try
@@ -71,6 +92,12 @@ public class Parcel
         }
     }
 
+    /**
+     * decompresses and decrypts the data
+     * @param filePath filepath to file
+     * @param AESKeyPath path to aes key
+     * @param privateKeyPath path to private key
+     */
     public void receiveData(String filePath, String AESKeyPath, String privateKeyPath)
     {
         try
@@ -103,6 +130,11 @@ public class Parcel
         }
     }
 
+    /**
+     * hashes the data
+     * @param fileSample data to be hashed
+     * @return a hash of fileSample
+     */
     public String getHash(byte[] fileSample) {
         StringBuilder sb = null;
         try {
