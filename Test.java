@@ -79,7 +79,7 @@ public class Test {
         Parcel testParcel = new Parcel();
         testParcel.generateRSAKeyPair();
         testParcel.sendData("test.txt", "public.key");
-        testParcel.receiveData("test.txt.enc", "securedkey.key", "private.p8");
+        testParcel.receiveData("test.txt.enc", "protected.key", "private.key");
     }
     public static void main(String args[])
     {
