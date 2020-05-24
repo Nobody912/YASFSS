@@ -3,5 +3,4 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="output" path=""/>
-	<classpathentry kind="lib" path="lib/xz-1.8.jar"/>
 </classpath>

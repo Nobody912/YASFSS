@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.zip.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-// import org.tukaani.xz.*;
 
 public class CompressedData
 {
@@ -16,14 +15,13 @@ public class CompressedData
             while ((len=fis.read(buffer)) != -1) {
                 gzipOS.write(buffer, 0, len);
             }
-            //close resources
+
             gzipOS.close();
             fos.close();
             fis.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
     }
 
     public void decompressGzipFile(String gzipFile, String newFile) {
@@ -36,7 +34,7 @@ public class CompressedData
             while ((len = gis.read(buffer)) != -1) {
                 fos.write(buffer, 0, len);
             }
-            //close resources
+
             fos.close();
             gis.close();
         } catch (IOException e) {
