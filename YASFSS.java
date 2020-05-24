@@ -10,7 +10,6 @@ public class YASFSS
         Parcel parcel = new Parcel();
         Scanner scan = new Scanner( System.in );
         String filePath;
-        String secret;
 
         boolean done = false;
 
@@ -31,22 +30,24 @@ public class YASFSS
                     case '1':
                         System.out.println( "Please put in your file path: " );
                         filePath = scan.nextLine();
-                        System.out.println( "What would you like the password to be?" );
-                        secret = scan.nextLine();
+                        System.out.println( "Please put in the file path to the public key: " );
+                        String publicKey = scan.nextLine();
                         System.out.println( "Your file is being encrypted and compressed" );
                         System.out.println( "..." );
-                        parcel.importData( filePath, secret );
+                        parcel.sendData( filePath, publicKey );
                         System.out.println( "Done" );
                         System.out.println();
                         break;
                     case '2':
-                        System.out.println( "put in your file path" );
+                        System.out.println( "Please put in your file path: " );
                         filePath = scan.nextLine();
-                        System.out.println( "What is the password?" );
-                        secret = scan.nextLine();
+                        System.out.println( "Please put in the file path to the AES Key: " );
+                        String AESKey = scan.nextLine();
+                        System.out.println("Please put in the file path to the private key: ");
+                        String privateKey = scan.nextLine();
                         System.out.println( "Your file is being decompressed and decrypted" );
                         System.out.println( "..." );
-                        parcel.exportData( filePath, secret );
+                        parcel.receiveData( filePath, AESKey, privateKey );
                         System.out.println( "Done" );
                         System.out.println();
                         break;
