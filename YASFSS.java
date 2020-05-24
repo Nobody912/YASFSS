@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 public class YASFSS
 {
-    public static void main(String[] args)
+    public YASFSS()
     {
+        Parcel parcel = new Parcel();
         Scanner scan = new Scanner( System.in );
         String filePath;
         String secret;
@@ -15,7 +16,6 @@ public class YASFSS
 
         do
         {
-
             System.out.println( "Would You like to: " );
             System.out.println( "1) Compress and Encrypt a file" );
             System.out.println( "2) Decrypt and Decompress a file" );
@@ -31,23 +31,23 @@ public class YASFSS
                     case '1':
                         System.out.println( "Please put in your file path: " );
                         filePath = scan.nextLine();
-                        System.out.println("What would you like the password to be?");
+                        System.out.println( "What would you like the password to be?" );
                         secret = scan.nextLine();
                         System.out.println( "Your file is being encrypted and compressed" );
-                        System.out.println("...");
-//                        Parcel.importData( filePath, secret );
-                        System.out.println("Done");
+                        System.out.println( "..." );
+                        parcel.importData( filePath, secret );
+                        System.out.println( "Done" );
                         System.out.println();
                         break;
                     case '2':
                         System.out.println( "put in your file path" );
                         filePath = scan.nextLine();
-                        System.out.println("What is the password?");
+                        System.out.println( "What is the password?" );
                         secret = scan.nextLine();
-                        System.out.println("Your file is being decompressed and decrypted");
-                        System.out.println("...");
-//                        Parcel.exportData( filePath, secret );
-                        System.out.println("Done");
+                        System.out.println( "Your file is being decompressed and decrypted" );
+                        System.out.println( "..." );
+                        parcel.exportData( filePath, secret );
+                        System.out.println( "Done" );
                         System.out.println();
                         break;
                     case 'q':
@@ -56,12 +56,18 @@ public class YASFSS
                         System.out.println();
                         break;
                     default:
-                        System.out.println("Please select a valid option");
+                        System.out.println( "Please select a valid option" );
                         System.out.println();
                         System.out.println();
                 }
             }
         } while ( !done );
         System.out.println( "Goodbye!" );
+    }
+
+
+    public static void main( String[] args )
+    {
+        new YASFSS();
     }
 }
