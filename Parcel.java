@@ -1,11 +1,10 @@
-
-import javax.crypto.SecretKey;
 import java.security.*;
 import java.security.spec.*;
 import java.nio.file.*;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.Arrays;
+import javax.crypto.SecretKey;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *  compresses and encrypts the data
@@ -54,24 +53,14 @@ public class Parcel
         String hash = null;
         try
         {
+            hash = getHash(filePath);
             SecuredData encryptor = new SecuredData();
             CompressedData compressor = new CompressedData();
 
             compressor.compressGzipFile(filePath, filePath + ".gz");
 
             byte[] rawFile = Files.readAllBytes(Paths.get(filePath + ".gz"));
-            byte[] fileSample;
-
-            if (rawFile.length > 8192)
-            {
-                fileSample = Arrays.copyOfRange(rawFile, 0, 8192);
-            }
-            else
-            {
-                fileSample = rawFile;
-            }
-
-            hash = getHash(fileSample);
+            
 
             Object[] encrypted = encryptor.encryptData(rawFile);
             byte[] encryptedData = (byte[]) encrypted[0];
@@ -148,17 +137,14 @@ public class Parcel
      * @param fileSample data to be hashed
      * @return a hash of fileSample
      */
-    public String getHash(byte[] fileSample) {
-        StringBuilder sb = null;
+    public String getHash(String filePath) {
+        String hash = null;
         try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            byte[] result = digest.digest(fileSample);
-
-            // converting byte array to Hexadecimal String
-            sb = new StringBuilder(2 * result.length);
-            for (byte b : result) {
-            sb.append(String.format("%02x", b&0xff));
-            }
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(Files.readAllBytes(Paths.get(filePath)));
+            byte[] digest = md.digest();
+            hash = DatatypeConverter
+              .printHexBinary(digest).toUpperCase(); 
         }
 
         catch (Exception e)
@@ -166,6 +152,11 @@ public class Parcel
             System.out.println("exception creating hash: " + e.getMessage());
         }
 
-        return sb.toString();
+        return hash;
+    }
+
+    public boolean verifyHash(String filePath, String hash) {
+        String realHash = getHash(filePath);
+        return hash.equals(realHash);
     }
 }

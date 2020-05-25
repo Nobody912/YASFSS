@@ -22,6 +22,7 @@ public class YASFSS
         Parcel parcel = new Parcel();
         Scanner scan = new Scanner( System.in );
         String filePath;
+        String hash;
 
         System.out.println( "Y A S F S S" );
         System.out.println( "YET ANOTHER SECURE FILE SHARING" );
@@ -34,6 +35,7 @@ public class YASFSS
             System.out.println( "1) Generate Keys");
             System.out.println( "2) Compress and Encrypt a file" );
             System.out.println( "3) Decrypt and Decompress a file" );
+            System.out.println( "4) Verify file" );
             System.out.println( "Q) Quit" );
             System.out.print( "YASFSS > " );
 
@@ -56,7 +58,7 @@ public class YASFSS
                         System.out.print( "Input public key path > " );
                         String publicKey = scan.nextLine();
                         System.out.println( "Compressing and Encrypting..." );
-                        String hash = parcel.sendData( filePath, publicKey );
+                        hash = parcel.sendData( filePath, publicKey );
                         System.out.println( "Done!" );
                         System.out.println( "MD5: " + hash );
                         System.out.println();
@@ -71,6 +73,21 @@ public class YASFSS
                         System.out.println( "Decrypting and decompressing..." );
                         parcel.receiveData( filePath, AESKey, privateKey );
                         System.out.println( "Done!" );
+                        System.out.println();
+                        break;
+                    case '4':
+                        System.out.print( "Input target file path > " );
+                        filePath = scan.nextLine();
+                        System.out.print( "Input MD5 checksum > " );
+                        hash = scan.nextLine();
+                        if (parcel.verifyHash(filePath, hash))
+                        {
+                            System.out.println("File integrity maintained!");
+                        }
+                        else
+                        {
+                            System.out.println("File integrity test failed!");
+                        }
                         System.out.println();
                         break;
                     case 'q':
