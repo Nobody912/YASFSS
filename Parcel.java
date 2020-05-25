@@ -124,6 +124,9 @@ public class Parcel
             out.close();
 
             compressor.decompressGzipFile(filePath.substring(0, filePath.lastIndexOf(".")) + ".gz", filePath.substring(0, filePath.lastIndexOf(".")));
+            
+            File temp = new File(filePath + ".gz");
+            temp.delete();
         }
         
         catch (Exception e)
