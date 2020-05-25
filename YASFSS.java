@@ -56,8 +56,9 @@ public class YASFSS
                         System.out.print( "Input public key path > " );
                         String publicKey = scan.nextLine();
                         System.out.println( "Compressing and Encrypting..." );
-                        parcel.sendData( filePath, publicKey );
+                        String hash = parcel.sendData( filePath, publicKey );
                         System.out.println( "Done!" );
+                        System.out.println( "MD5: " + hash );
                         System.out.println();
                         break;
                     case '3':

@@ -5,6 +5,7 @@ import java.security.spec.*;
 import java.nio.file.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Arrays;
 
 /**
  *  compresses and encrypts the data
@@ -48,8 +49,9 @@ public class Parcel
      * @param filePath filepath to file
      * @param publicKeyPath filepath to key
      */
-    public void sendData(String filePath, String publicKeyPath)
+    public String sendData(String filePath, String publicKeyPath)
     {
+        String hash = null;
         try
         {
             SecuredData encryptor = new SecuredData();
@@ -58,6 +60,19 @@ public class Parcel
             compressor.compressGzipFile(filePath, filePath + ".gz");
 
             byte[] rawFile = Files.readAllBytes(Paths.get(filePath + ".gz"));
+            byte[] fileSample;
+
+            if (rawFile.length > 8192)
+            {
+                fileSample = Arrays.copyOfRange(rawFile, 0, 8192);
+            }
+            else
+            {
+                fileSample = rawFile;
+            }
+
+            hash = getHash(fileSample);
+
             Object[] encrypted = encryptor.encryptData(rawFile);
             byte[] encryptedData = (byte[]) encrypted[0];
             SecretKey secretKey = (SecretKey) encrypted[1];
@@ -86,6 +101,8 @@ public class Parcel
         {
             System.out.println("exception processing data for sending: " + e.getMessage());
         }
+        
+        return hash;
     }
 
     /**
