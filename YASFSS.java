@@ -23,15 +23,19 @@ public class YASFSS
         Scanner scan = new Scanner( System.in );
         String filePath;
 
+        System.out.println( "Y A S F S S" );
+        System.out.println( "YET ANOTHER SECURE FILE SHARING" );
+
         boolean done = false;
 
         do
         {
-            System.out.println( "Would You like to: " );
+            System.out.println( "Select a mode of operation:" );
             System.out.println( "1) Generate Keys");
             System.out.println( "2) Compress and Encrypt a file" );
             System.out.println( "3) Decrypt and Decompress a file" );
             System.out.println( "Q) Quit" );
+            System.out.print( "YASFSS > " );
 
             String response = scan.nextLine();
             if ( response.length() > 0 )
@@ -41,34 +45,31 @@ public class YASFSS
                 switch ( response.charAt( 0 ) )
                 {
                     case '1':
-                        System.out.println("Generating Keys");
-                        System.out.println("...");
+                        System.out.println("Generating Keypair...");
                         parcel.generateRSAKeyPair();
-                        System.out.println("Done");
+                        System.out.println("Done!");
                         System.out.println();
                         break;
                     case '2':
-                        System.out.println( "Please put in your file path: " );
+                        System.out.print( "Input target file path > " );
                         filePath = scan.nextLine();
-                        System.out.println( "Please put in the file path to the public key: " );
+                        System.out.print( "Input public key path > " );
                         String publicKey = scan.nextLine();
-                        System.out.println( "Your file is being encrypted and compressed" );
-                        System.out.println( "..." );
+                        System.out.println( "Compressing and Encrypting..." );
                         parcel.sendData( filePath, publicKey );
-                        System.out.println( "Done" );
+                        System.out.println( "Done!" );
                         System.out.println();
                         break;
                     case '3':
-                        System.out.println( "Please put in your file path: " );
+                        System.out.print( "Input target file path > " );
                         filePath = scan.nextLine();
-                        System.out.println( "Please put in the file path to the AES Key: " );
+                        System.out.print( "Input encrypted AES key path > " );
                         String AESKey = scan.nextLine();
-                        System.out.println("Please put in the file path to the private key: ");
+                        System.out.print( "Input private key path > " );
                         String privateKey = scan.nextLine();
-                        System.out.println( "Your file is being decompressed and decrypted" );
-                        System.out.println( "..." );
+                        System.out.println( "Decrypting and decompressing..." );
                         parcel.receiveData( filePath, AESKey, privateKey );
-                        System.out.println( "Done" );
+                        System.out.println( "Done!" );
                         System.out.println();
                         break;
                     case 'q':
@@ -77,7 +78,7 @@ public class YASFSS
                         System.out.println();
                         break;
                     default:
-                        System.out.println( "Please select a valid option" );
+                        System.out.println( "Please select a valid option." );
                         System.out.println();
                         System.out.println();
                 }
