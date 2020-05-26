@@ -158,6 +158,12 @@ public class Parcel
         return hash;
     }
 
+    /**
+     * verifies hash
+     * @param filePath path to file
+     * @param hash hash to be compared
+     * @return boolean whether hashes are equal
+     */
     public boolean verifyHash(String filePath, String hash) {
         String realHash = getHash(filePath);
         return hash.equals(realHash);
