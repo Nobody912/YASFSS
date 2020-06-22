@@ -241,6 +241,10 @@ public class SecuredData
         return keyPair.getPublic();
     }
 
+    /**
+     * getPrivateKey
+     * @return PrivateKey
+     */
     public PrivateKey getPrivateKey() {
         return keyPair.getPrivate();
     }

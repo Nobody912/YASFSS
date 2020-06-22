@@ -17,6 +17,9 @@ import java.util.Scanner;
  */
 public class YASFSS
 {
+    /**
+     * YASFSS - frontend
+     */
     public YASFSS()
     {
         Parcel parcel = new Parcel();
